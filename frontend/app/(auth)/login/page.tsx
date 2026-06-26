@@ -43,9 +43,9 @@ export default function LoginPage() {
       // Redirect based on role
       const role = res.data.user.role;
       if (role === "borrower") {
-        router.push("/personal-details");
+        router.replace("/personal-details");
       } else {
-        router.push(`/${role}`);
+        router.replace(`/${role}`);
       }
     } catch {
       setError("Something went wrong. Please try again.");

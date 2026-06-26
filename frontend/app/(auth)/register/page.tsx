@@ -39,7 +39,7 @@ export default function RegisterPage() {
       }
 
       login(res.data.token, res.data.user);
-      router.push("/personal-details");
+      router.replace("/personal-details");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {

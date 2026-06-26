@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -7,7 +8,7 @@ import {
   ReactNode,
 } from "react";
 import { User } from "@/types";
-import { getUser, setAuth, clearAuth } from "@/lib/auth";
+import { setAuth, clearAuth } from "@/lib/auth";
 
 interface AuthContextType {
   user: User | null;
@@ -25,14 +26,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load from localStorage on mount
-    const savedUser = getUser();
-    const savedToken = localStorage.getItem("lms_token");
-    if (savedUser && savedToken) {
-      setUser(savedUser);
-      setToken(savedToken);
+    try {
+      const savedToken = localStorage.getItem("lms_token");
+      const savedUser = localStorage.getItem("lms_user");
+      if (savedToken && savedUser) {
+        setToken(savedToken);
+        setUser(JSON.parse(savedUser));
+      }
+    } catch {
+      // ignore parse errors
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
   const login = (token: string, user: User) => {
