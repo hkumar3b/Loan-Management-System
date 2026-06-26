@@ -44,6 +44,8 @@ export default function LoginPage() {
       const role = res.data.user.role;
       if (role === "borrower") {
         router.replace("/personal-details");
+      } else if (role === "admin") {
+        router.replace("/sales"); // admin sees all, start with sales
       } else {
         router.replace(`/${role}`);
       }

@@ -16,6 +16,7 @@ export interface User {
   monthlySalary?: number;
   employmentMode?: string;
   isEligible?: boolean;
+  createdAt?: string;
 }
 
 export interface Loan {
