@@ -7,6 +7,9 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const db_1 = __importDefault(require("./config/db"));
+const auth_routes_1 = __importDefault(require("./modules/auth/auth.routes"));
+const user_routes_1 = __importDefault(require("./modules/user/user.routes"));
+const loan_routes_1 = __importDefault(require("./modules/loan/loan.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Connect DB
@@ -21,7 +24,9 @@ app.use('/uploads', express_1.default.static('uploads'));
 app.get('/', (req, res) => {
     res.json({ success: true, message: 'LMS API is running' });
 });
-// TODO: routes will be registered here as we build them
+app.use('/api/auth', auth_routes_1.default);
+app.use('/api/user', user_routes_1.default);
+app.use('/api/loan', loan_routes_1.default);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
