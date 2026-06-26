@@ -169,7 +169,7 @@ export default function SanctionPage() {
               Please provide a reason for rejection.
             </p>
             <textarea
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-red-400 resize-none"
+              className="w-full border border-gray-400 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-red-400 resize-none"
               rows={3}
               placeholder="e.g. Insufficient income proof..."
               value={rejectionReason}
