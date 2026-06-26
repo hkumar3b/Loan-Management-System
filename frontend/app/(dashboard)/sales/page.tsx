@@ -59,7 +59,7 @@ export default function SalesPage() {
             <tbody className="divide-y divide-gray-100">
               {leads.map((lead) => (
                 <tr
-                  key={lead.id}
+                  key={lead._id || lead.id}
                   className="hover:bg-gray-50 transition-colors"
                 >
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">
