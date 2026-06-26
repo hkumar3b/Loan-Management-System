@@ -3,6 +3,7 @@ import {
   savePersonalDetailsService,
   getUserProfileService,
 } from './user.service';
+import { getLeadsService } from './user.service';
 
 export const savePersonalDetails = async (
   req: Request,
@@ -40,6 +41,18 @@ export const getMyProfile = async (
     const result = await getUserProfileService(req.user!.id);
     const statusCode = result.success ? 200 : 404;
     res.status(statusCode).json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export const getLeads = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const result = await getLeadsService();
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }

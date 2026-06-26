@@ -1,6 +1,7 @@
 import User from './user.model';
 import { runBRE } from '../../utils/bre';
 import { ApiResponse } from '../../utils/ApiResponse';
+import Loan from '../loan/loan.model';
 
 export const savePersonalDetailsService = async (
   userId: string,
@@ -49,4 +50,18 @@ export const getUserProfileService = async (userId: string) => {
     return new ApiResponse(false, 'User not found');
   }
   return new ApiResponse(true, 'User profile fetched', user);
+};
+
+// Sales module — users who registered but haven't applied yet
+export const getLeadsService = async () => {
+
+  const borrowers = await User.find({ role: 'borrower' }).select('-password');
+
+  const loanBorrowerIds = await Loan.distinct('borrowerId');
+
+  const leads = borrowers.filter(
+    (user) => !loanBorrowerIds.some((id) => id.toString() === user._id.toString())
+  );
+
+  return new ApiResponse(true, 'Leads fetched successfully', leads);
 };
